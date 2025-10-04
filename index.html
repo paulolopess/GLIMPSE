@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>GLIMPSE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--------------- INTRO VIDEO ------------------------------------------------->
+<div class="intro-video" id="intro">
+    <video autoplay muted playsinline class="intro-bg" id="introVideo">
+        <source src="./mainpage/INTRO_VIDEO.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+  <!-- Vertex Shader -->
+  <script id="vs" type="x-shader/x-vertex">
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  </script>
+
+  <!-- Fragment Shader -->
+  <script id="fs" type="x-shader/x-fragment">
+    uniform sampler2D map;
+    uniform vec3 fogColor;
+    uniform float fogNear;
+    uniform float fogFar;
+    varying vec2 vUv;
+    void main() {
+      float depth = gl_FragCoord.z / gl_FragCoord.w;
+      float fogFactor = smoothstep(fogNear, fogFar, depth);
+      gl_FragColor = texture2D(map, vUv);
+      gl_FragColor.w *= pow(gl_FragCoord.z, 20.0);
+      gl_FragColor = mix(gl_FragColor, vec4(fogColor, gl_FragColor.w), fogFactor);
+    }
+  </script>
+
+  <!-- Bibliotecas -->
+  <script src="js/three.min.js"></script>
+  <script src="js/Detector.js"></script>
+
+  <!-- Nuvens de fundo -->
+  <div id="three-background"></div>
+
+  <!-- Overlay HTML -->
+  <div id="ui-overlay">
+
+    <!-- LOGO --------------------------------------->
+    <img id="btn-logo" src="./mainpage/LOGO.png" alt="Logo">
+
+    <!-- MENU TOPO ---------------------------------->
+    <nav class="top-menu">
+      <ul>
+        <li><a href="#services" id="btn-services">Services</a></li>
+        <li><a href="#projects" id="btn-projects">Projects</a></li>
+        <li><a href="#contacts" id="btn-contacts">Contacts</a></li>
+      </ul>
+    </nav>
+
+    <!-- PAGINAS ------------------------------------->
+    <div id="home-page" class="page show-page">
+      <div class="home-container">
+        <h1 class="home-title">GLIMPSE</h1>
+        <p class="home-subtitle">TURN IDEAS INTO EXPERIENCES</p>
+      </div>
+    </div>
+
+    <div id="services-page" class="page services-page">
+      <div class="services-container">
+        <!-- Card 1 -->
+        <div class="service-item">
+          <video src="video1.mp4" autoplay muted loop playsinline></video>
+        </div>
+
+        <!-- Texto central -->
+        <div class="service-text">
+          <h2>
+            <span class="line">We model your project in detail</span>
+            <span class="line">Customize it to your liking, with total freedom.</span>
+            <span class="line">Test it in your space, without apps, with Augmented Reality</span>
+            <span class="line">Go further... present anywhere, with impact</span>
+            <span class="line">Immerse yourself and explore the project with Virtual Reality</span>
+          </h2>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="service-item">
+          <video src="video2.mp4" autoplay muted loop playsinline></video>
+        </div>
+      </div>
+    </div>
+
+    <div id="projects-page" class="page projects-page">
+      <div class="projects-container">
+        <div class="gallery-wrapper">
+          <div class="gallery-items">
+            <!-- imagens aqui -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Frase/Título à frente do formulário -->
+<div id="contacts-page" class="page contact-page">
+  <div class="contact-container">
+
+    <!-- Frase/Título à frente do formulário -->
+    <div class="contact-intro">
+      <h2>BRING YOUR PROJECTS TO LIFE</h2>
+    </div>
+
+    <!-- Formulário -->
+    <form action="#" method="POST" class="contact-form">
+      <div class="form-fields">
+        <div class="input-container">
+          <input type="text" id="name" name="name" placeholder="Name" required>
+        </div>
+        
+        <div class="input-container">
+          <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
+
+        <div class="input-container">
+          <textarea id="message" name="message" placeholder="Message" required></textarea>
+        </div>
+      </div>
+
+      <button type="submit" class="send-button">Send</button>
+    </form>
+    
+  </div>
+</div>
+  
+  <!-- Nuvens de frente -->
+  <div id="three-foreground"></div>
+
+  <!-- Super Overlay para Redes Sociais -->
+<div id="super-overlay">
+  <div class="social-media-container">
+    <a href="https://www.whatsapp.com" target="_blank" class="neu-button">
+      <img src="./mainpage/SOCIAL MEDIA/WHATSAPP_B.png" alt="Whatsapp">
+    </a>
+    <a href="https://www.facebook.com" target="_blank" class="neu-button">
+      <img src="./mainpage/SOCIAL MEDIA/PINTEREST_B.png" alt="Facebook">
+    </a>
+    <a href="https://www.instagram.com" target="_blank" class="neu-button">
+      <img src="./mainpage/SOCIAL MEDIA/Instagram_B.png" alt="Instagram">
+    </a>
+    <a href="https://www.tiktok.com" target="_blank" class="neu-button">
+      <img src="./mainpage/SOCIAL MEDIA/TIKTOK_B.png" alt="Tiktok">
+    </a>
+    <a href="https://www.linkedin.com" target="_blank" class="neu-button">
+      <img src="./mainpage/SOCIAL MEDIA/LINKEDIN_B.png" alt="LinkedIn">
+    </a>
+  </div>
+</div>
+
+  <!-- JS -->
+  <script src="main.js"></script>
+</body>
+</html>
